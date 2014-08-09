@@ -21,6 +21,9 @@ class User(db.Model, UserMixin):
     def __unicode__(self):
         return self.name
 
+    def check_password(self, password):
+        return self.password == password
+
 
 class Channel(db.Model):
     __tablename__ = 'channels'
