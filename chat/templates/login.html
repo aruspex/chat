@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+
+{% import "_formhelpers.html" as formhelpers %}
+
 {% block title %}
   {{ super() }} - Login
 {% endblock title %}
@@ -21,8 +24,8 @@
         <div class="tab-pane fade active in" id="signin">
           <form class="form-signin" role="form" action="{{ url_for('login') }}" method="post">
             {{ signin_form.hidden_tag() }}
-            {{ signin_form.email(class="form-control", placeholder="Email address", required="required") }}
-            {{ signin_form.password(class="form-control", placeholder="Password", required="required") }}
+            {{ formhelpers.render_field(signin_form.email, "Email address") }}
+            {{ formhelpers.render_field(signin_form.password, "Password") }}
             <div class="checkbox">
               <label>
                 {{ signin_form.remember_me() }}
@@ -35,12 +38,10 @@
         <div class="tab-pane fade" id="signup">
           <form class="form-signup" role="form" action="{{ url_for('login') }}" method="post">
             {{ signup_form.hidden_tag() }}
-            {{ signup_form.name(class="form-control", placeholder="Username", required="required") }}
-            {# <input type="text" class="form-control" name="username" placeholder="Username" required autofocus> #}
-            {{ signup_form.email(class="form-control", placeholder="Email address", required="required") }}
-            {# <input type="email" class="form-control" name="email" placeholder="Email address" required> #}
-            {{ signup_form.password(class="form-control", placeholder="Password", required="required") }}
-            {# <input type="password" class="form-control" name="password" placeholder="Password" required> #}
+            {{ formhelpers.render_field(signup_form.name, "Username") }}
+            {{ formhelpers.render_field(signup_form.email, "Email address") }}
+            {{ formhelpers.render_field(signup_form.password, "Password") }}
+            {{ formhelpers.render_field(signup_form.confirm, "Confirm password") }}
             <div class="checkbox">
               <label>
                 {{ signup_form.remember_me() }}

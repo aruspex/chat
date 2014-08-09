@@ -72,6 +72,9 @@ class LoginView(View):
             db.session.commit()
             login_user(user, remember=remember_me)
             return redirect(url_for('channels'))
+        # else:
+        #     if signup_form.name.data:
+        #         import ipdb; ipdb.set_trace()
 
         signin_form = SignInForm(prefix="signin")
         if signin_form.validate_on_submit():
