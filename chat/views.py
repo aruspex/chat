@@ -55,34 +55,24 @@ class ChannelView(BaseChatView):
 class LoginView(View):
     methods = ['GET', 'POST']
 
-    def get_user_data(self, form):
-        user_data = form.data
-        remember_me = user_data.pop('remember_me')
-        return user_data, remember_me
-
     def dispatch_request(self):
         if current_user.is_authenticated():
             return redirect(url_for('channels'))
 
         signup_form = SignUpForm(prefix="signup")
         if signup_form.validate_on_submit():
-            user_data, remember_me = self.get_user_data(signup_form)
-            user = User(**user_data)
+            user = User(**signup_form.user_data)
             db.session.add(user)
             db.session.commit()
-            login_user(user, remember=remember_me)
+            login_user(user, remember=signup_form.rmmbrme)
             return redirect(url_for('channels'))
-        # else:
-        #     if signup_form.name.data:
-        #         import ipdb; ipdb.set_trace()
 
         signin_form = SignInForm(prefix="signin")
         if signin_form.validate_on_submit():
-            user_data, remember_me = self.get_user_data(signin_form)
-            user = User.query.filter_by(**user_data).first()
+            user = User.query.filter_by(**signin_form.user_data).first()
             if not user:
                 return redirect(url_for('login'))
-            login_user(user, remember_me)
+            login_user(user, signin_form.rmmbrme)
             return redirect(url_for('channels'))
 
         return render_template(

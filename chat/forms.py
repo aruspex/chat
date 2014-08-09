@@ -5,7 +5,14 @@ from wtforms import validators
 from .models import User
 
 
-class SignUpForm(Form):
+class UserDataMixin(object):
+
+    def get_user_data(self):
+        self.user_data = self.data
+        self.rmmbrme = self.user_data.pop('remember_me')
+
+
+class SignUpForm(Form, UserDataMixin):
     name = StringField('name', [validators.Length(min=4, max=20)])
     email = StringField('email', [validators.Length(min=6, max=50)])
     password = PasswordField('password', [
@@ -16,8 +23,29 @@ class SignUpForm(Form):
     ])
     remember_me = BooleanField(default=False)
 
+    def validate(self):
+        self.get_user_data()
+        rv = Form.validate(self)
+        if not rv:
+            return False
 
-class SignInForm(Form):
+        user = User.query.filter(User.name == self.name.data).first()
+        if user:
+            self.name.errors.append('This user already exist')
+            return False
+
+        user = User.query.filter(User.email == self.email.data).first()
+        if user:
+            self.email.errors.append('User with this email already exist')
+            return False
+        return True
+
+    def get_user_data(self):
+        super(SignUpForm, self).get_user_data()
+        self.user_data.pop('confirm')
+
+
+class SignInForm(Form, UserDataMixin):
     email = StringField('email')
     password = PasswordField('password')
     remember_me = BooleanField(default=False)
@@ -27,6 +55,7 @@ class SignInForm(Form):
         self.user = None
 
     def validate(self):
+        self.get_user_data()
         rv = Form.validate(self)
         if not rv:
             return False
