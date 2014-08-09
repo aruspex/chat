@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}
+  {{ super() }} - Login
+{% endblock title %}
+
+{% block navbar %}
+  
+{% endblock navbar %}
+
+{% block content %}
+    <div class="wrapper">
+      <ul id="signTab" class="nav nav-tabs" role="tablist">
+        <li class="active">
+          <a href="#signin" role="tab" data-toggle="tab">Sign In</a>
+        </li>
+        <li>
+          <a href="#signup" role="tab" data-toggle="tab">Sign Up</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane fade active in" id="signin">
+          <form class="form-signin" role="form" action="{{ url_for('login') }}" method="post">
+            {{ signin_form.hidden_tag() }}
+            {{ signin_form.email(class="form-control", placeholder="Email address", required="required") }}
+            {{ signin_form.password(class="form-control", placeholder="Password", required="required") }}
+            <div class="checkbox">
+              <label>
+                {{ signin_form.remember_me() }}
+                Remember me
+              </label>
+            </div>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in">
+          </form>
+        </div>
+        <div class="tab-pane fade" id="signup">
+          <form class="form-signup" role="form" action="{{ url_for('login') }}" method="post">
+            {{ signup_form.hidden_tag() }}
+            {{ signup_form.name(class="form-control", placeholder="Username", required="required") }}
+            {# <input type="text" class="form-control" name="username" placeholder="Username" required autofocus> #}
+            {{ signup_form.email(class="form-control", placeholder="Email address", required="required") }}
+            {# <input type="email" class="form-control" name="email" placeholder="Email address" required> #}
+            {{ signup_form.password(class="form-control", placeholder="Password", required="required") }}
+            {# <input type="password" class="form-control" name="password" placeholder="Password" required> #}
+            <div class="checkbox">
+              <label>
+                {{ signup_form.remember_me() }}
+                {# <input type="checkbox" value="remember-me" name="remember-me"> #}
+                Remember me
+              </label>
+            </div>
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up">
+          </form>          
+        </div>
+      </div>
+    </div>
+{% endblock content %}

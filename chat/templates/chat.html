@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %} {{ super() }} - {{ channel }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="chat-wrapper" id="chat" data-channelid="{{ channel.id }}">
+            <h2>{{ channel }}</h2>
+            <div id="chat-messages" class="chat-messages well">
+                {% for message in messages %}
+                    <div class="message">
+                        <address>
+                            {% if message.user == user %}me
+                            {% else %}{{ message.user }}
+                            {% endif %}
+                        </address>
+                        <span>{{ message.text }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+            <form name="chat-form form-inline" id="chat-form" action="." method="get">
+                <div class="input-group">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    <input class="input-large" type="text" name="text" id="new-message" placeholder="Enter your message here..." autocomplete="off">
+                    <button class="btn btn-primary" type="submit" id="send-msg-btn">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block extra_js %}
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<script src="/static/js/chat.js"></script>
+{% endblock %}
+
+

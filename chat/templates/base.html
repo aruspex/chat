@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Web Chat{% endblock title %}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    </head>
+    <body>
+    <div class="container">
+        {% block navbar %}
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse" href='#'>
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="{{ url_for('channels') }}" class="navbar-brand">Web Chat</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a role="button" class="btn" data-toggle="modal" data-target="#modalAddChannel">Add Channel</a>
+                            </li>
+                            {% block channels_link %}<li><a href="{{ url_for('channels') }}">Channels</a></li>{% endblock channels_link %}
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                        </ul>
+                        <div class="nav navbar-nav col-sm-3 col-md-3 navbar-right" id="search-bar">
+                            <form class="channel-search-form" role="search" action="{{ url_for('channel_search') }}" method="post">
+                                <div class="input-group">
+                                    {{ search_form.hidden_tag() }}
+                                    {{ search_form.name(class='form-control', placeholder='Channel name', id='srch-name') }}
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modalAddChannel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalAddChannel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="modalAddChannelLabel">Add Channel</h3>
+                        </div>
+                        <div class="modal-body">
+
+                          <form id="addChannelForm" method="post" action="{{ url_for('create') }}">
+                            <input type="hidden" name="InfroText" value="1">
+                            <input id="name" type="text" class="form-control" name="name" placeholder="Channel name" required>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                          <button class="btn btn-primary" data-dismiss="modal" id="addChannelSubmit">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endblock navbar %}
+
+        {% block content %}
+            
+        {% endblock content %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-1.11.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    {% block extra_js %}{% endblock extra_js %}  
+    </body>
+</html>
+
+

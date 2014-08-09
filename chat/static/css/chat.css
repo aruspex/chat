@@ -1,0 +1,122 @@
+body {
+    background-color: #eee;
+
+}
+.wrapper
+ {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signup .form-signin-heading,
+.form-signup .checkbox,
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signup .checkbox,
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signup .form-control,
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signup .form-control:focus,
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signup input[type="text"],
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+}
+.form-signup input[type="password"],
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.form-signup input[type="email"] {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    margin-bottom: -1px;
+}
+
+.tab-content {
+    margin-top: 8px;
+}
+
+
+.input-large {
+    width: 450px;
+}
+.chat-messages {
+    height: 400px;
+    margin: 20px 0;
+    overflow: auto;
+}
+.chat-messages .message {
+    margin: 10px 0;
+}
+.chat-messages address {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 10px
+}
+.chat-messages address:after {
+    content: ':';
+}
+
+.list-inline > li {
+    padding-bottom: 7px;
+}
+
+#search-bar {
+    margin-top: 8px;
+}
+
+.chat-wrapper {
+    width: 770px;
+    margin: auto;
+}
+
+#new-message {
+    height: 34px;
+}
+
+#send-msg-btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    height: 34px;
+    margin-top: -2px;
+}
+
+
+/* enable absolute positioning */
+.inner-addon { 
+    position: relative; 
+}
+
+/* style icon */
+.inner-addon .glyphicon {
+  position: absolute;
+  padding: 10px;
+  pointer-events: none;
+}
+
+/* align icon */
+.left-addon .glyphicon  { left:  0px;}
+.right-addon .glyphicon { right: 0px;}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }

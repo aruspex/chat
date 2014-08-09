@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block channels_link %}<li class="active"><a href="{{ url_for('channels') }}">Channels</a></li>{% endblock channels_link %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h2>List of channels:</h2>
+            <ul class="list-inline">
+                {% for channel in channels %}
+                    <li>
+                        <a href="{{ channel.get_absolute_url() }}" class="btn btn-info">{{ channel }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}
+
+
+
