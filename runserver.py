@@ -7,4 +7,4 @@ from socketio.server import SocketIOServer
 monkey.patch_all()
 
 
-SocketIOServer(('', 5000), app, resource="socket.io").serve_forever()
+SocketIOServer(('', 80), app, resource="socket.io").serve_forever()

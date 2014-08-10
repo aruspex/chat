@@ -35,11 +35,6 @@ class ChatNamespace(BaseNamespace, RoomsMixin):
         )
 
     def recv_disconnect(self):
-        self.emit_to_room(
-            self.channel,
-            'user_leaving',
-            self.user
-        )
         try:
             self.leave(self.channel)
         except KeyError:

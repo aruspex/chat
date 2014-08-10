@@ -75,11 +75,6 @@ $(document).ready(function() {
         post_message(container, system_message(msg, 'success'));
     });
 
-    socket.on('user_leaving', function(user) {
-        var msg = '<strong>' + user + '</strong> is now offline';
-        post_message(container, system_message(msg, 'danger'));
-    });
-
     socket.on('msg_channel', function(user, msg) {
         post_message(container, user_message(user, msg));
     });
