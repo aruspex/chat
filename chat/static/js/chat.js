@@ -27,6 +27,8 @@ $(document).ready(function() {
         $('#new-message').val('');
     };
 
+
+    // so-called ycombinator-bot
     var parseRSS = function(url, container) {
         $.ajax({
             url: document.location.protocol +
@@ -62,7 +64,7 @@ $(document).ready(function() {
     });
 
 
-
+    // socket.io-related stuff
     socket.on('connect', function() {
         var channelId = $('#chat').data('channelid');
         socket.emit('join', channelId);
@@ -87,6 +89,7 @@ $(document).ready(function() {
         socket.emit('new message', message);
     });
 
+    // search in chat history & highlight matches
     $(function() {
         $('#text-search').bind('keyup change', function(ev) {
             var searchTerm = $(this).val();
