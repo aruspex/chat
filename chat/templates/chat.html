@@ -11,8 +11,15 @@
         </div>
     </div>
 </form>
-    
 {% endblock search_form %}
+
+{% block navbar_extended %}
+    <li>
+        <form>
+        <a role="button" class="btn btn-warning btn-sm navbar-btn" id="bot-btn">Bot</a>
+        </form>
+    </li>
+{% endblock navbar_extended %}
 
 {% block content %}
     <div class="row">
