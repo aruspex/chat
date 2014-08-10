@@ -37,4 +37,16 @@ $(document).ready(function() {
         socket.emit('new message', message);
     });
 
+    $(function() {
+        $('#text-search').bind('keyup change', function(ev) {
+            var searchTerm = $(this).val();
+            $('body').removeHighlight();
+            if ( searchTerm ) {
+                $('body').highlight( searchTerm );
+            };
+        });
+    });
+
+
+
 });

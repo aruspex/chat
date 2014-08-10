@@ -2,6 +2,18 @@
 
 {% block title %} {{ super() }} - {{ channel }}{% endblock %}
 
+{% block search_form %}
+<form class="channel-search-form" role="search">
+    <div class="input-group">
+        <input class="form-control" id="text-search" name="name" placeholder="History search" type="text" value="">
+        <div class="input-group-btn">
+            <button class="btn btn-default disabled"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+</form>
+    
+{% endblock search_form %}
+
 {% block content %}
     <div class="row">
         <div class="chat-wrapper" id="chat" data-channelid="{{ channel.id }}">
@@ -14,7 +26,7 @@
                             {% else %}{{ message.user }}
                             {% endif %}
                         </address>
-                        <span>{{ message.text }}</span>
+                        <span id="message-text">{{ message.text }}</span>
                     </div>
                 {% endfor %}
             </div>
@@ -31,6 +43,7 @@
 
 {% block extra_js %}
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/highlight.js') }}"></script>
 <script src="/static/js/chat.js"></script>
 {% endblock %}
 
