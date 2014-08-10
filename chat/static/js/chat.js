@@ -18,8 +18,8 @@ $(document).ready(function() {
         return msg
     };
 
-    var system_message = function(msg) {
-        msg = '<p class=bg-info>' + msg + '</p>'
+    var system_message = function(msg, cls) {
+        msg = '<p class=bg-' + cls +'>' + msg + '</p>'
         return msg
     }
 
@@ -56,7 +56,7 @@ $(document).ready(function() {
         var $this = $(this);
         tggl = !tggl;
         if (tggl) {
-            post_message(container, system_message('Bot will be posting Ycombinator news every 3 minutes'));
+            post_message(container, system_message('Bot will be posting Ycombinator news every 3 minutes', 'info'));
             $this.addClass('btn-success').removeClass('btn-warning');
         } else {
             $this.addClass('btn-warning').removeClass('btn-success');
@@ -70,8 +70,14 @@ $(document).ready(function() {
         socket.emit('join', channelId);
     });
 
-    socket.on('error', function(error) {
-        console.log('Error ', error);
+    socket.on('user_joined', function(user) {
+        var msg = '<strong>' + user + '</strong> is now online';
+        post_message(container, system_message(msg, 'success'));
+    });
+
+    socket.on('user_leaving', function(user) {
+        var msg = '<strong>' + user + '</strong> is now offline';
+        post_message(container, system_message(msg, 'danger'));
     });
 
     socket.on('msg_channel', function(user, msg) {

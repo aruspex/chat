@@ -18,6 +18,7 @@ class ChatNamespace(BaseNamespace, RoomsMixin):
             app.preprocess_request()
             del kwargs['request']
         super(ChatNamespace, self).__init__(*args, **kwargs)
+        self.user = current_user.name
 
     def disconnect(self, *args, **kwargs):
         if self.ctx:
@@ -27,9 +28,22 @@ class ChatNamespace(BaseNamespace, RoomsMixin):
     def on_join(self, channel):
         self.channel = str(channel)
         self.join(self.channel)
+        self.emit_to_room(
+            self.channel,
+            'user_joined',
+            self.user
+        )
 
     def recv_disconnect(self):
-        self.leave(self.channel)
+        self.emit_to_room(
+            self.channel,
+            'user_leaving',
+            self.user
+        )
+        try:
+            self.leave(self.channel)
+        except KeyError:
+            pass
 
     def on_new_message(self, text):
         msg = Message(
@@ -42,6 +56,6 @@ class ChatNamespace(BaseNamespace, RoomsMixin):
         self.emit_to_room(
             self.channel,
             'msg_channel',
-            current_user.name,
+            self.user,
             text
         )
